@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>윤상훈 · Sanghoon Yoon · 지식 구조화 · For 퍼스트해빗</title>
+<meta name="description" content="강의의 논리와 설명 흐름을 AI가 학습 가능한 지식 레이어로 구조화합니다. For 퍼스트해빗 지식 구조화 전문가.">
+<meta property="og:title" content="윤상훈 · 지식 구조화 · For 퍼스트해빗">
+<meta property="og:description" content="강의의 논리와 설명 흐름을 AI가 학습 가능한 지식 레이어로 구조화합니다.">
+
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+
+  :root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --surface-alt: #f5f3ff;
+    --ink: #0b0b0d;
+    --ink-2: #2a2a2a;
+    --ink-3: #525252;
+    --ink-4: #6e6e6e;
+    --ink-5: #a3a3a3;
+    --hairline: #e8e8e7;
+    --accent: #7c3aed;
+    --accent-soft: #f5f3ff;
+    --accent-2: #5b21b6;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+  body {
+    font-family: 'Pretendard', sans-serif;
+    color: var(--ink-2);
+    background: var(--bg);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(250, 250, 250, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--hairline);
+    z-index: 10;
+  }
+  .header-inner {
+    max-width: 920px; margin: 0 auto;
+    padding: 14px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+  .header-name { font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+  .header-nav { display: flex; gap: 18px; }
+  .header-nav a { color: var(--ink-4); text-decoration: none; font-size: 12px; }
+  .header-nav a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 96px 0 72px;
+  }
+  .hero-eyebrow {
+    font-size: 12px; font-weight: 700; color: var(--accent);
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 18px;
+  }
+  .hero-h1 {
+    font-size: 44px; font-weight: 800; color: var(--ink);
+    letter-spacing: -0.025em; line-height: 1.18;
+    margin-bottom: 24px;
+  }
+  .hero-h1 .hl { color: var(--accent); }
+  .hero-sub {
+    font-size: 16px; color: var(--ink-3); line-height: 1.7;
+    max-width: 640px;
+  }
+  .hero-sub strong { color: var(--ink-2); font-weight: 600; }
+  .hero-meta {
+    margin-top: 28px;
+    display: flex; gap: 14px; flex-wrap: wrap;
+    font-size: 13px; color: var(--ink-4);
+  }
+  .hero-meta-tag {
+    padding: 5px 12px;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+  }
+
+  /* ── SECTION ── */
+  section.page {
+    padding: 64px 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .section-h {
+    font-size: 28px; font-weight: 800; color: var(--ink);
+    letter-spacing: -0.02em; line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  .section-h .hl { color: var(--accent); }
+  .section-sub {
+    font-size: 15px; color: var(--ink-3); line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 720px;
+  }
+  .section-sub strong { color: var(--ink-2); font-weight: 600; }
+
+  /* ── 01 WHY FIT ── */
+  .fit-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .fit-row {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 22px 24px;
+    display: grid; grid-template-columns: 1fr; gap: 8px;
+  }
+  @media (min-width: 720px) {
+    .fit-row { grid-template-columns: 1fr 1.4fr; gap: 28px; align-items: baseline; }
+  }
+  .fit-req {
+    font-size: 14px; font-weight: 700; color: var(--ink);
+    letter-spacing: -0.01em; line-height: 1.45;
+  }
+  .fit-req-tag {
+    display: inline-block; font-family: var(--mono);
+    font-size: 9.5px; color: var(--accent);
+    background: var(--accent-soft); padding: 2px 7px;
+    border-radius: 4px; margin-bottom: 6px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .fit-evidence {
+    font-size: 14px; color: var(--ink-2); line-height: 1.6;
+  }
+  .fit-evidence strong { color: var(--ink); font-weight: 600; }
+
+  /* ── 02 KNOWLEDGE LAYER ── */
+  .layers-summary {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .layer-row {
+    display: grid; grid-template-columns: 36px 1fr;
+    gap: 16px; padding: 16px 24px;
+    border-bottom: 1px solid var(--hairline);
+    align-items: baseline;
+  }
+  .layer-row:last-child { border-bottom: none; }
+  .layer-num {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent); font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .layer-content { display: flex; flex-direction: column; gap: 4px; }
+  .layer-title {
+    font-size: 14px; font-weight: 700; color: var(--ink);
+  }
+  .layer-desc {
+    font-size: 13px; color: var(--ink-3); line-height: 1.55;
+  }
+
+  .pdf-cta {
+    margin-top: 32px;
+    background: var(--accent-soft);
+    border: 1px solid #ddd6fe;
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .pdf-cta-text {
+    font-size: 14px; color: var(--ink-2); line-height: 1.5;
+  }
+  .pdf-cta-text strong { color: var(--ink); font-weight: 700; }
+  .pdf-cta-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent); color: white;
+    padding: 10px 18px; border-radius: 8px;
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    transition: background 0.15s;
+  }
+  .pdf-cta-link:hover { background: var(--accent-2); }
+
+  /* ── 03 SCHEMA TABLE ── */
+  .schema {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .schema-row {
+    display: grid; grid-template-columns: 9em 1fr;
+    gap: 16px; padding: 14px 22px;
+    border-bottom: 1px solid var(--hairline);
+    align-items: baseline; font-size: 13.5px;
+  }
+  .schema-row:last-child { border-bottom: none; }
+  .schema-row.header {
+    background: #fafafa;
+    font-family: var(--mono);
+    font-size: 10.5px; font-weight: 700;
+    color: var(--ink-4); letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .schema-key {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent); font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .schema-val { color: var(--ink-2); line-height: 1.55; }
+  .schema-val code {
+    background: var(--surface-alt); padding: 1px 6px;
+    border-radius: 3px; font-family: var(--mono); font-size: 11.5px;
+    color: var(--accent-2);
+  }
+
+  /* ── 04 AI GENERATION ── */
+  .pipeline-strip {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    padding: 24px;
+    overflow-x: auto;
+  }
+  .pipeline-row {
+    display: flex; gap: 8px; align-items: stretch;
+    min-width: 600px;
+  }
+  .stage-box {
+    flex: 1; padding: 12px 10px; border-radius: 6px;
+    background: #fafafa; text-align: center; min-width: 0;
+    border-top: 3px solid var(--ink-4);
+  }
+  .stage-box.gemini { border-top-color: #1a73e8; }
+  .stage-box.gpt { border-top-color: #10a37f; }
+  .stage-box.claude { border-top-color: #c87a3e; }
+  .stage-box.perp { border-top-color: #20808d; }
+  .stage-box.hitl { border-top-color: #d97706; background: #fef3e0; }
+  .stage-box.tts { border-top-color: #db2777; }
+  .stage-step {
+    font-family: var(--mono); font-size: 9px;
+    color: var(--ink-4); letter-spacing: 0.1em;
+    font-weight: 700; margin-bottom: 4px;
+  }
+  .stage-name {
+    font-size: 13px; font-weight: 700; margin-bottom: 3px;
+    letter-spacing: -0.01em;
+  }
+  .stage-box.gemini .stage-name { color: #1a73e8; }
+  .stage-box.gpt .stage-name { color: #10a37f; }
+  .stage-box.claude .stage-name { color: #c87a3e; }
+  .stage-box.perp .stage-name { color: #20808d; }
+  .stage-box.hitl .stage-name { color: #d97706; }
+  .stage-box.tts .stage-name { color: #db2777; }
+  .stage-role {
+    font-size: 10.5px; color: var(--ink-3); line-height: 1.4;
+  }
+  .stage-arrow {
+    align-self: center; color: var(--ink-5);
+    font-size: 16px; padding: 0 1px;
+  }
+
+  /* ── 05 VALIDATION ── */
+  .validation-list {
+    background: var(--surface-alt);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 22px 26px;
+    list-style: none;
+  }
+  .validation-list li {
+    font-size: 14px; color: var(--ink-2); line-height: 1.7;
+    padding: 6px 0 6px 22px; position: relative;
+  }
+  .validation-list li::before {
+    content: "?"; position: absolute; left: 0;
+    color: var(--accent); font-weight: 700;
+  }
+  .validation-list li strong { color: var(--ink); font-weight: 600; }
+
+  /* ── HONEST ── */
+  .honest {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--ink-4);
+    border-radius: 8px;
+    padding: 22px 26px;
+  }
+  .honest-h {
+    font-size: 11px; font-weight: 700; color: var(--ink-4);
+    letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .honest-body {
+    font-size: 14px; color: var(--ink-3); line-height: 1.7;
+  }
+  .honest-body strong { color: var(--ink-2); font-weight: 600; }
+
+  /* ── CONTACT ── */
+  .contact {
+    padding: 80px 0 96px;
+    border-top: 1px solid var(--hairline);
+    background: var(--surface);
+  }
+  .contact-h {
+    font-size: 32px; font-weight: 800; color: var(--ink);
+    letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 14px;
+  }
+  .contact-h .hl { color: var(--accent); }
+  .contact-sub {
+    font-size: 15px; color: var(--ink-3); line-height: 1.7;
+    margin-bottom: 28px; max-width: 540px;
+  }
+  .contact-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: white;
+    padding: 14px 24px; border-radius: 10px;
+    text-decoration: none; font-size: 14px; font-weight: 600;
+    transition: background 0.15s;
+  }
+  .contact-cta:hover { background: var(--accent-2); }
+  .contact-meta {
+    margin-top: 28px;
+    font-size: 12px; color: var(--ink-4);
+    display: flex; gap: 18px; flex-wrap: wrap;
+  }
+
+  footer {
+    padding: 24px 0;
+    border-top: 1px solid var(--hairline);
+    font-size: 11px; color: var(--ink-5);
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .hero-h1 { font-size: 32px; }
+    .section-h { font-size: 22px; }
+    .contact-h { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="header-name">윤상훈 · Sanghoon Yoon</span>
+    <nav class="header-nav">
+      <a href="#fit">Why Fit</a>
+      <a href="#layer">Layer Sample</a>
+      <a href="#schema">Schema</a>
+      <a href="#generation">Generation</a>
+      <a href="#validation">Validation</a>
+      <a href="#contact">연락</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">For 퍼스트해빗 · 지식 구조화 전문가</div>
+    <h1 class="hero-h1">
+      강의의 논리와 설명 흐름을<br>
+      AI가 학습 가능한 <span class="hl">지식 레이어</span>로 구조화합니다.
+    </h1>
+    <p class="hero-sub">
+      <strong>한화오션 다부서 언어 번역</strong> + <strong>멀티 LLM 파이프라인 단독 설계</strong> + <strong>비기술자용 강의 자료 제작</strong> —
+      셋의 공통점은 "비정형적인 무엇을, 받을 사람이 따라올 수 있는 단위와 흐름으로 재구조화하는 일".
+      이 페이지는 그 사고 틀이 퍼스트해빗 도메인에 어떻게 옮겨갈 수 있는지에 대한 외부 가설입니다.
+    </p>
+    <div class="hero-meta">
+      <span class="hero-meta-tag">Available · Seoul, Korea</span>
+      <span class="hero-meta-tag">For 지식 구조화 전문가</span>
+      <span class="hero-meta-tag">+첨부 PDF 2편</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- 01 WHY FIT -->
+<section class="page" id="fit">
+  <div class="container">
+    <div class="section-num">01 · Why Fit</div>
+    <h2 class="section-h">공고 자격요건 <span class="hl">↔ 본인 경력 매핑</span></h2>
+    <p class="section-sub">
+      퍼스트해빗 공고가 명시한 핵심 자격요건과 우대사항 4개에 대해, 어디서 그 능력을 다뤘는지에 대한 답.
+    </p>
+
+    <div class="fit-grid">
+
+      <div class="fit-row">
+        <div>
+          <div class="fit-req-tag">자격요건 1</div>
+          <div class="fit-req">"가설 기반의 설계 역량 — A/B/C 레이어로 구분해 학습시키면 AI가 더 논리적으로 생성"</div>
+        </div>
+        <div class="fit-evidence">
+          멀티 LLM 영상 제작 앱에서 <strong>5단계 콘텐츠 파이프라인을 5개 모델에 분리 할당</strong>한 결정 과정. 각 단계가 요구하는 능력을 먼저 분해한 뒤 모델을 매칭한 가설 기반 설계. 별도 Multi-LLM-Layer-Map.pdf 참조.
+        </div>
+      </div>
+
+      <div class="fit-row">
+        <div>
+          <div class="fit-req-tag">자격요건 2</div>
+          <div class="fit-req">"비정형적인 요소를 AI가 이해 가능한 논리적 규격으로 정교하게 설계"</div>
+        </div>
+        <div class="fit-evidence">
+          한화오션 다부서 조율(독일 제조사·조달·배관전장설계·국방과학연구소) — "불량/스펙 불일치/납기 리스크"로 다르게 부르는 단어들을 <strong>다부서가 같은 단어로 합의 가능한 라벨로 정의</strong>하는 작업이 업무의 핵심.
+        </div>
+      </div>
+
+      <div class="fit-row">
+        <div>
+          <div class="fit-req-tag">자격요건 3</div>
+          <div class="fit-req">"본인이 설계한 데이터 구조가 AI 생성 결과에 어떻게 기여하는지 추론·보완"</div>
+        </div>
+        <div class="fit-evidence">
+          멀티 LLM 영상 제작 앱의 <strong>HITL 게이트 위치 결정</strong> — 끝/매단계/중간 1지점 중 "되돌림 비용이 가장 낮은 한 지점"을 선택한 근거 추론. 같은 사고를 학습 콘텐츠 검증에도 적용 가능.
+        </div>
+      </div>
+
+      <div class="fit-row">
+        <div>
+          <div class="fit-req-tag">우대 1 · 학습 과정 이해</div>
+          <div class="fit-req">"인간의 학습 과정을 구조적으로 이해"</div>
+        </div>
+        <div class="fit-evidence">
+          첨부한 <strong>Knowledge-Layer-Sample이 직접 증거</strong>. 미적분 한 문항을 학습자가 도달해야 할 개념 상태·전제 지식·오개념·설명 전략으로 분해하고, 6개 학습자 변수에 따라 어느 레이어를 강조·재배치할지 정의한 1차 가설. 학문적 이론이 아니라 분해·매핑 사고 자체로 학습자 인지 흐름을 다뤄본 표본.
+        </div>
+      </div>
+
+      <div class="fit-row">
+        <div>
+          <div class="fit-req-tag">우대 2 · 분석 축 분해</div>
+          <div class="fit-req">"설명 구조·사고 과정·문제 해결을 분석 축으로 나눠본 경험"</div>
+        </div>
+        <div class="fit-evidence">
+          비기술자 청중을 가정한 <strong>90분 강의 자료 두 종(메인 13장·심화 20장)</strong> 직접 작성. AI 워크플로우의 단계·실패 모드·검증 지점을 분석 축으로 분해한 자료. 강의 진행 이력은 없고 자료 자체로 보유.
+        </div>
+      </div>
+
+      <div class="fit-row">
+        <div>
+          <div class="fit-req-tag">우대 3 · 라벨 정의 협업</div>
+          <div class="fit-req">"팀과 함께 개념·라벨 정의를 조율하거나 문서로 만들어본 경험"</div>
+        </div>
+        <div class="fit-evidence">
+          한화오션 시절 다부서 조율 작업 — 이슈 정의·우선순위·소유자를 공통 양식으로 정리해 4개 그룹이 같은 단어로 합의하도록 운영. 공식 라벨링 프로젝트는 아니지만 같은 결의 작업.
+        </div>
+      </div>
+
+      <div class="fit-row">
+        <div>
+          <div class="fit-req-tag">우대 4 · 핵심 변수 감각</div>
+          <div class="fit-req">"AI 결과물 품질을 결정짓는 핵심 변수(Layer)를 찾아내는 감각"</div>
+        </div>
+        <div class="fit-evidence">
+          멀티 LLM 영상 제작 앱이 정확히 이 작업의 사례. <strong>Gemini=멀티모달 / GPT=구조화 / Claude=한국어 톤 / Perplexity=실시간 검증</strong>의 분리는 "결과물 품질을 결정짓는 변수"가 단계마다 다른 종류라는 가설의 직접 구현.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- 02 KNOWLEDGE LAYER SAMPLE -->
+<section class="page" id="layer">
+  <div class="container">
+    <div class="section-num">02 · Knowledge Layer Sample</div>
+    <h2 class="section-h">한 문제를 <span class="hl">8개 지식 레이어</span>로 분해하기</h2>
+    <p class="section-sub">
+      AI가 좋은 설명을 생성하려면, 결과물(풀이)뿐 아니라 그 설명을 만들기 위해 분해되어야 할 지식 단위들이 먼저 정의되어 있어야 합니다.
+      <strong>고등학교 미적분 극값 문제 1문항</strong>을 케이스로 잡고 작성한 1차 분해 시안.
+    </p>
+
+    <div class="layers-summary">
+      <div class="layer-row">
+        <div class="layer-num">L1</div>
+        <div class="layer-content">
+          <div class="layer-title">Concept Layer · 개념 정의</div>
+          <div class="layer-desc">이 문제가 다루는 최소 개념 단위. 학습자가 도달해야 할 개념 상태에 "이미 알아야 함 / 새로 익힘 / 이후 일반화" 태그.</div>
+        </div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-num">L2</div>
+        <div class="layer-content">
+          <div class="layer-title">Prerequisite Layer · 전제 지식 그래프</div>
+          <div class="layer-desc">L1 개념을 이해하려면 미리 알아야 할 지식. AI 학습자 수준 진단 후 설명 시작점 결정의 입력.</div>
+        </div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-num">L3</div>
+        <div class="layer-content">
+          <div class="layer-title">Misconception Layer · 오개념 사전</div>
+          <div class="layer-desc">자주 틀리는 사고 경로. AI가 예방적으로 짚어야 할 함정. 단순 오답이 아니라 잘못된 사고 흐름.</div>
+        </div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-num">L4</div>
+        <div class="layer-content">
+          <div class="layer-title">Explanation Strategy · 설명 전략</div>
+          <div class="layer-desc">같은 답이라도 어떤 순서·은유로 설명할지에 따라 학습 경험 변화. AI가 학습자 톤에 맞춰 분기.</div>
+        </div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-num">L5</div>
+        <div class="layer-content">
+          <div class="layer-title">Visual Flow · 판서·시각 시퀀스</div>
+          <div class="layer-desc">퍼스트해빗의 시각화 기반 학습 환경에 가장 직접 매칭. 화면에 무엇이 어떤 순서로 그려져야 학습자가 따라올 수 있는가의 시각 시퀀스 규격.</div>
+        </div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-num">L6</div>
+        <div class="layer-content">
+          <div class="layer-title">Problem Solving · 풀이 단계</div>
+          <div class="layer-desc">실제 풀이 경로의 단계화. 각 단계는 "왜 이 단계가 필요한가"를 함께 라벨링.</div>
+        </div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-num">L7</div>
+        <div class="layer-content">
+          <div class="layer-title">Validation Question · 이해 검증</div>
+          <div class="layer-desc">학습자가 진짜 이해했는지 확인하는 되묻기 질문 세트. 오개념 역추적에도 사용.</div>
+        </div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-num">L8</div>
+        <div class="layer-content">
+          <div class="layer-title">Generalization · 일반화</div>
+          <div class="layer-desc">이 문제 다음에 따라오는 학습 흐름 노드. AI가 다음 추천 문제·학습 경로를 잇는 데 사용.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-cta">
+      <div class="pdf-cta-text">
+        <strong>각 레이어의 정의·예시·검증 가설</strong>은 별도 1편 PDF에서 자세히. 미적분 케이스 외 다른 도메인(영어 문법·국어 비문학·과학 개념)에서 일부 레이어 재정의 필요한 부분도 명시.
+      </div>
+      <a href="Knowledge-Layer-Sample.pdf" class="pdf-cta-link" target="_blank" rel="noopener">
+        Knowledge-Layer-Sample.pdf →
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 03 LABELING SCHEMA -->
+<section class="page" id="schema">
+  <div class="container">
+    <div class="section-num">03 · Labeling Schema</div>
+    <h2 class="section-h">AI가 학습 가능한 <span class="hl">라벨링 스키마 v0.1</span></h2>
+    <p class="section-sub">
+      8레이어가 실제 데이터 구조로 어떻게 정의될 수 있는지에 대한 1차 시안. <strong>강의 한 단위가 회사 자산으로 누적되려면</strong> 어떤 필드 조합으로 라벨링되어야 하는가에 대한 사고. 미적분 케이스 기준이며, 다른 도메인은 일부 필드 재정의 필요.
+    </p>
+
+    <div class="schema">
+      <div class="schema-row header">
+        <div>Field</div>
+        <div>What it captures</div>
+      </div>
+      <div class="schema-row">
+        <div class="schema-key">concept_tags</div>
+        <div class="schema-val">L1(개념) 단위. <code>["도함수", "극값", "부호 변화", "임계점"]</code> 형태로 검색·재사용 가능한 키 단위.</div>
+      </div>
+      <div class="schema-row">
+        <div class="schema-key">prerequisite_edges</div>
+        <div class="schema-val">L2(전제 지식) 그래프 엣지. 노드 간 의존도(필수/선택). AI 진단 후 설명 시작점 결정의 입력.</div>
+      </div>
+      <div class="schema-row">
+        <div class="schema-key">misconception_type</div>
+        <div class="schema-val">L3(오개념) 분류. <code>"f_prime_zero_implies_extreme"</code> 같은 식별자 + <code>targets_misconception</code>으로 검증 질문과 연결.</div>
+      </div>
+      <div class="schema-row">
+        <div class="schema-key">explanation_strategy</div>
+        <div class="schema-val">L4(설명 전략) 분기. <code>{type, target_level}</code> 쌍. AI가 학습자 수준에 따라 분기 선택.</div>
+      </div>
+      <div class="schema-row">
+        <div class="schema-key">visual_sequence</div>
+        <div class="schema-val">L5(판서·시각). <code>[{step, action, region}]</code> 배열. 시각화 기반 학습 환경에서 핵심 라벨링 단위.</div>
+      </div>
+      <div class="schema-row">
+        <div class="schema-key">validation_question_type</div>
+        <div class="schema-val">L7(검증 질문). 각 질문에 <code>targets_layer</code> 또는 <code>targets_misconception</code> 연결로 오개념 역추적.</div>
+      </div>
+    </div>
+
+    <div class="pdf-cta">
+      <div class="pdf-cta-text">
+        <strong>강의 30초 라벨링 표</strong>(시간·발화·판서·의도·레이어·라벨)와 <strong>JSON 스키마 v0.1 전체 예시</strong>는 별도 PDF에 포함. 라벨이 단순 분류가 아니라 "AI가 따라할 수 있는 행동 시퀀스"가 되는 사고를 함께 다룸.
+      </div>
+      <a href="Knowledge-Layer-Sample.pdf" class="pdf-cta-link" target="_blank" rel="noopener">
+        Knowledge-Layer-Sample.pdf →
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 04 AI GENERATION LOGIC -->
+<section class="page" id="generation">
+  <div class="container">
+    <div class="section-num">04 · AI Generation Logic</div>
+    <h2 class="section-h">멀티 LLM 파이프라인 <span class="hl">레이어 분리 사례</span></h2>
+    <p class="section-sub">
+      에듀테크 스타트업 재직 시절 단독 개발한 영상 제작 앱을 <strong>"콘텐츠 생성 레이어 분리"</strong>의 사례로 재분석.
+      "어느 모델이 가장 좋은가"가 아니라 "어느 단계가 어떤 능력을 요구하는가"가 분리의 결정 기준.
+    </p>
+
+    <div class="pipeline-strip">
+      <div class="pipeline-row">
+        <div class="stage-box gemini">
+          <div class="stage-step">STEP 1</div>
+          <div class="stage-name">Gemini</div>
+          <div class="stage-role">Multimodal<br>Comprehension</div>
+        </div>
+        <div class="stage-arrow">›</div>
+        <div class="stage-box gpt">
+          <div class="stage-step">STEP 2</div>
+          <div class="stage-name">GPT</div>
+          <div class="stage-role">Structured<br>Extraction</div>
+        </div>
+        <div class="stage-arrow">›</div>
+        <div class="stage-box claude">
+          <div class="stage-step">STEP 3</div>
+          <div class="stage-name">Claude</div>
+          <div class="stage-role">Korean<br>Tone</div>
+        </div>
+        <div class="stage-arrow">›</div>
+        <div class="stage-box perp">
+          <div class="stage-step">STEP 4</div>
+          <div class="stage-name">Perplexity</div>
+          <div class="stage-role">Real-time<br>Verification</div>
+        </div>
+        <div class="stage-arrow">›</div>
+        <div class="stage-box hitl">
+          <div class="stage-step">GATE</div>
+          <div class="stage-name">HITL</div>
+          <div class="stage-role">Risk<br>Boundary</div>
+        </div>
+        <div class="stage-arrow">›</div>
+        <div class="stage-box tts">
+          <div class="stage-step">STEP 5</div>
+          <div class="stage-name">TTS</div>
+          <div class="stage-role">Audio<br>Render</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-cta">
+      <div class="pdf-cta-text">
+        <strong>각 단계의 모델 할당 근거</strong> + <strong>HITL 게이트 위치 결정 (끝 vs 매단계 vs 중간 1지점)</strong>의 사고 과정을 별도 1편으로 정리. 같은 사고 틀을 강의 콘텐츠 분해에 옮기면 어떻게 되는지에 대한 가설도 포함.
+      </div>
+      <a href="Multi-LLM-Layer-Map.pdf" class="pdf-cta-link" target="_blank" rel="noopener">
+        Multi-LLM-Layer-Map.pdf →
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- 05 VALIDATION -->
+<section class="page" id="validation">
+  <div class="container">
+    <div class="section-num">05 · Validation Plan</div>
+    <h2 class="section-h">레이어 설계의 <span class="hl">타당성 검증 가설</span></h2>
+    <p class="section-sub">
+      위 레이어 분해와 변수 정의가 "AI 설명 품질에 실제로 기여하는가"를 어떻게 측정할지에 대한 가설. 입사 후 회사 데이터에 맞춰 다듬어가야 할 검증 계획의 1차 윤곽.
+    </p>
+
+    <ul class="validation-list">
+      <li><strong>L3(오개념) 효과 검증</strong> — 같은 문제를 L3 활성화/비활성화 두 버전으로 동일 학습자 그룹에 노출 → 직후 시험 정답률 비교</li>
+      <li><strong>L4(설명 전략) 분기 효과</strong> — (a) 직관 / (b) 형식적 / (c) 비유 무작위 배정 → 학습자 만족도 + 7일 후 재시험 잔존율</li>
+      <li><strong>L7(검증 질문) 발화 시점</strong> — 풀이 직후 vs 5분 후로 분리 → 오개념 회복률 비교</li>
+      <li><strong>L5(시각 시퀀스) transition 속도</strong> — step 단위 transition 속도 변경 → 학습자 시선 추적 vs 이해도 상관관계</li>
+      <li><strong>L2(전제 지식) 진단 정확도</strong> — 진단 오류 시뮬레이션 후 후속 설명 품질에 미치는 영향 측정</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- HONEST -->
+<section class="page">
+  <div class="container">
+    <div class="section-num">06 · Honest Note</div>
+    <h2 class="section-h">정직하게 적어둘 부분</h2>
+    <p class="section-sub">
+      이 페이지의 자료들은 <strong>입사 전 외부 가설</strong>이며, 회사 데이터·기존 라벨링 스키마·실제 시각 표현 규격이 입력되지 않은 상태에서 작성되었습니다.
+    </p>
+
+    <div class="honest">
+      <div class="honest-h">알고 있는 갭</div>
+      <div class="honest-body">
+        교육공학·인지심리학·언어학 정식 학위·연구 경험은 없고, 강의 콘텐츠 라벨링 스키마를 회사 단위 표준으로 운영해본 사례도 없습니다. <strong>다만 이 일에 필요한 하위 역량 — 비정형 정보의 레이어 분해, AI 결과물 품질 변수 분리, 학습자 맥락에 따른 재조립 — 은 그동안 각기 다른 환경에서 다뤄왔고</strong>, 이 페이지의 두 첨부 PDF가 그 하위 역량을 퍼스트해빗 도메인에 옮겨본 1차 표본입니다. 실제 회사 데이터에 맞춰 다듬어가는 일은 입사 후 첫 분기에 직접 쌓아가야 할 영역으로 보고 있습니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <h2 class="contact-h">
+      이 분해 사고가 회사 데이터에<br>
+      <span class="hl">옮겨갈 수 있을지</span> 한 번 이야기 나눠보고 싶으시다면,
+    </h2>
+    <p class="contact-sub">
+      편하게 연락 주세요. 짧은 메시지도 환영입니다.
+    </p>
+    <a href="mailto:hoon7624g@gmail.com" class="contact-cta">
+      hoon7624g@gmail.com →
+    </a>
+    <div class="contact-meta">
+      <span>For 퍼스트해빗 · 지식 구조화 전문가 (Education)</span>
+      <span>·</span>
+      <span>+첨부: 자소서 · Knowledge-Layer-Sample.pdf · Multi-LLM-Layer-Map.pdf</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    윤상훈 · Sanghoon Yoon · 2026.04 · For 퍼스트해빗 지식 구조화 전문가
+  </div>
+</footer>
+
+</body>
+</html>
